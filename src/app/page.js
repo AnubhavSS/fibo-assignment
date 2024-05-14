@@ -6,9 +6,9 @@ import Image from "next/image";
 
 export default function Home() {
   return (
- <div >
+ <div className="container" >
 <Topbar/>
-<div className="flex justify-between items-center w-[312px] h-[28px] m-4 ml-14">
+<div className="flex justify-between items-center w-[312px] h-[28px] m-4 ">
   <p className="goals">Today’s Goal</p>
  <Image src={heart} width={36} height={28} alt="heart"/>
 </div>
