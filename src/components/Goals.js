@@ -6,6 +6,9 @@ import { IoFootstepsSharp } from "react-icons/io5";
 import { GiNightSleep } from "react-icons/gi";
 import { IoIosWater } from "react-icons/io";
 import { SwipeableButton } from "react-swipeable-button";
+import { useAppDispatch } from "@/lib/hooks";
+import { addGoal, trackAll } from "@/lib/goalSlice";
+import { useAppSelector } from "@/lib/hooks";
 const data = [
   {
     title: "Workout for 20 mins",
@@ -34,15 +37,25 @@ const data = [
   },
 ];
 
-const onSuccess = () => {
-  console.log("Successfully Swiped!");
-};
 
 const Goals = () => {
+
+const dispatch=useAppDispatch()
+
+const handleChange=(e)=>{
+  dispatch(addGoal(e.target.id))
+}
+
+const onSuccess = () => {
+
+  dispatch(trackAll())
+};
+
+const name = useAppSelector((state) => state.goalSlice)
   return (
     <>
       <div className="flex flex-col justify-center items-center w-full gap-4">
-        {data.map((item) => {
+        {data.map((item,index) => {
           return (
             <div className="goalContainer" key={item.title}>
               {/* ICON */}
@@ -57,9 +70,12 @@ const Goals = () => {
 
               {/* checkbox */}
               <input
+              checked={name[index]}
+              id={index}
                 type="checkbox"
                 className="goalInput"
                 style={{ accentColor: item.color }}
+                onChange={handleChange}
               />
             </div>
           );
